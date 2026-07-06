@@ -138,7 +138,7 @@ end
 
 -- Función para auto-expulsarse (desconectarse del servidor)
 local function selfKick()
-    game.Players.LocalPlayer:Kick("Administrador detectado - Auto-expulsión activada")
+    game.Players.LocalPlayer:Kick("Administrador detectado!")
 end
 
 -- Verificar si hay administradores en el servidor
@@ -179,11 +179,11 @@ ToggleButton.MouseButton1Click:Connect(function()
     isActive = not isActive
     if isActive then
         ToggleButton.Text = "Desactivar"
-        ToggleButton.BackgroundColor3 = Color3.fromRGB(85, 170, 255)
+        ToggleButton.BackgroundColor3 = Color3.fromRGB(255, 85, 85)
         Status.Text = "Estado: <font color='rgb(85, 255, 85)'>Activo</font>"
     else
         ToggleButton.Text = "Activar"
-        ToggleButton.BackgroundColor3 = Color3.fromRGB(255, 85, 85)
+        ToggleButton.BackgroundColor3 = Color3.fromRGB(85, 255, 85)
         Status.Text = "Estado: <font color='rgb(255, 85, 85)'>Inactivo</font>"
     end
 end)
@@ -195,4 +195,4 @@ spawn(function()
     end
 end)
 
-print("Script de auto-expulsión moderno cargado correctamente")
+print("Script anti-ban cargado correctamente")
