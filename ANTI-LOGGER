@@ -183,7 +183,7 @@ ToggleButton.MouseButton1Click:Connect(function()
         Status.Text = "Estado: <font color='rgb(85, 255, 85)'>Activo</font>"
     else
         ToggleButton.Text = "Activar"
-        ToggleButton.BackgroundColor3 = Color3.fromRGB(85, 255, 85)
+        ToggleButton.BackgroundColor3 = Color3.fromRGB(85, 170, 255)
         Status.Text = "Estado: <font color='rgb(255, 85, 85)'>Inactivo</font>"
     end
 end)
