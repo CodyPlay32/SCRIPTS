@@ -1,4 +1,4 @@
--- Script para Delta Executor
+-- Script para Delta Executor - Auto-expulsión cuando un administrador entre
 local admins = {
     "darkwolfplayerinuse",     
     "s3r31n_n",
@@ -69,7 +69,7 @@ Title.BorderSizePixel = 0
 Title.Position = UDim2.new(0, 0, 0, 0)
 Title.Size = UDim2.new(0, 400, 0, 30)
 Title.Font = Enum.Font.SourceSansBold
-Title.Text = "Admin Kick System para Delta"
+Title.Text = "Auto-Kick para Administradores"
 Title.TextColor3 = Color3.fromRGB(255, 255, 255)
 Title.TextSize = 18.000
 
@@ -79,7 +79,7 @@ Status.BorderSizePixel = 0
 Status.Position = UDim2.new(0, 0, 0, 30)
 Status.Size = UDim2.new(0, 400, 0, 25)
 Status.Font = Enum.Font.SourceSans
-Status.Text = "Estado: Activo"
+Status.Text = "Estado: Activo - Monitoreando admins"
 Status.TextColor3 = Color3.fromRGB(85, 255, 85)
 Status.TextSize = 14.000
 
@@ -137,21 +137,30 @@ local function isAdmin(playerName)
     return false
 end
 
--- Función para expulsar jugador
-local function kickPlayer(player)
-    player:Kick("Se ha conectado un administrador al servidor.")
+-- Función para auto-expulsarse (desconectarse del servidor)
+local function selfKick()
+    -- Método 1: Usar TeleportService para salir del servidor
+    game:GetService("TeleportService"):Teleport(game.PlaceId)
+    
+    -- Método 2: Si el anterior no funciona, forzar la desconexión
+    game.Players.LocalPlayer:Kick("Administrador detectado - Auto-expulsión activada")
 end
 
--- Verificar y expulsar administradores
-local function checkAndKickAdmins()
+-- Verificar si hay administradores en el servidor
+local function checkForAdmins()
     if not isActive then return end
     
     for _, player in ipairs(game.Players:GetPlayers()) do
         if isAdmin(player.Name) then
-            kickPlayer(player)
-            Status.Text = "Administrador expulsado: " .. player.Name
+            Status.Text = "¡Administrador detectado: " .. player.Name .. "!"
+            Status.TextColor3 = Color3.fromRGB(255, 85, 85)
+            
+            -- Esperar un momento antes de auto-expulsarse
             wait(1)
-            Status.Text = "Estado: Activo"
+            
+            -- Auto-expulsarse
+            selfKick()
+            return
         end
     end
 end
@@ -161,10 +170,14 @@ game.Players.PlayerAdded:Connect(function(player)
     if not isActive then return end
     
     if isAdmin(player.Name) then
-        kickPlayer(player)
-        Status.Text = "Administrador expulsado al entrar: " .. player.Name
+        Status.Text = "¡Administrador entró: " .. player.Name .. "!"
+        Status.TextColor3 = Color3.fromRGB(255, 85, 85)
+        
+        -- Esperar un momento antes de auto-expulsarse
         wait(1)
-        Status.Text = "Estado: Activo"
+        
+        -- Auto-expulsarse
+        selfKick()
     end
 end)
 
@@ -174,7 +187,7 @@ ToggleButton.MouseButton1Click:Connect(function()
     if isActive then
         ToggleButton.Text = "Desactivar"
         ToggleButton.BackgroundColor3 = Color3.fromRGB(85, 170, 255)
-        Status.Text = "Estado: Activo"
+        Status.Text = "Estado: Activo - Monitoreando admins"
         Status.TextColor3 = Color3.fromRGB(85, 255, 85)
     else
         ToggleButton.Text = "Activar"
@@ -187,8 +200,8 @@ end)
 -- Comprobación periódica
 spawn(function()
     while wait(checkInterval) do
-        checkAndKickAdmins()
+        checkForAdmins()
     end
 end)
 
-print("Script de administración para Delta cargado correctamente")
+print("Script de auto-expulsión para Delta cargado correctamente")
