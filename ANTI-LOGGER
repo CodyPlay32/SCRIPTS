@@ -1,132 +1,107 @@
--- Script para Delta Executor - Auto-expulsión cuando un administrador entre
 local admins = {
-    "s3r31n_n",
-    "RaaneshGamer4435K",
-    "Mvspro12321",
-    "DxxrkVenom",
-    "RealGloxh",
-    "vicekeeper",
-    "SempaiH9",
-    "24l05l09",
-    "coolkidsuper500",
-    "S1verlynne",
-    "cclarify",
-    "nukestar",
-    "swagknife19",
-    "beodnt",
-    "Sama_roblox34",
-    "1Daxito",
-    "Juanpith0rik0",
-    "FreedomBirth",
-    "dytona_x",
-    "Souligraphy",
-    "stuckwithpoli",
-    "Imjustaproguy2232",
-    "OmegaAnoobis",
-    "NotVpxr",
-    "lichugamerpro",
-    "Brockkodile",
-    "Atavi",
-    "ZacksFy",
-    "BossSpax",
-    "yHasteeD",
-    "WtrMelonAdam",
-    "FamedChris",
-    "DBS_WorkflowBot",
-    "dbs_johnny",
-    "decim8or",
-    "EnlocK",
-    "DBSRedis",
-    "BrickStormer01",
-    "Blade_Executive"
+    "s3r31n_n", "RaaneshGamer4435K", "Mvspro12321", "DxxrkVenom", "RealGloxh", "vicekeeper",
+    "SempaiH9", "24l05l09", "coolkidsuper500", "S1verlynne", "cclarify", "nukestar", "swagknife19",
+    "beodnt", "Sama_roblox34", "1Daxito", "Juanpith0rik0", "FreedomBirth", "dytona_x", "Souligraphy",
+    "stuckwithpoli", "Imjustaproguy2232", "OmegaAnoobis", "NotVpxr", "lichugamerpro", "Brockkodile",
+    "Atavi", "ZacksFy", "BossSpax", "yHasteeD", "WtrMelonAdam", "FamedChris", "DBS_WorkflowBot",
+    "dbs_johnny", "decim8or", "EnlocK", "DBSRedis", "BrickStormer01", "Blade_Executive"
 }
 
--- Crear interfaz de usuario para Delta
 local ScreenGui = Instance.new("ScreenGui")
 local MainFrame = Instance.new("Frame")
+local TitleBar = Instance.new("Frame")
 local Title = Instance.new("TextLabel")
+local CloseButton = Instance.new("TextButton")
 local Status = Instance.new("TextLabel")
-local AdminList = Instance.new("ScrollingFrame")
-local UIListLayout = Instance.new("UIListLayout")
 local ToggleButton = Instance.new("TextButton")
+local AdminCount = Instance.new("TextLabel")
+local Corner = Instance.new("UICorner")
+local TitleCorner = Instance.new("UICorner")
+local ButtonCorner = Instance.new("UICorner")
 
 ScreenGui.Parent = game.CoreGui
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 MainFrame.Parent = ScreenGui
-MainFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-MainFrame.BorderColor3 = Color3.fromRGB(27, 42, 53)
-MainFrame.BorderSizePixel = 2
-MainFrame.Position = UDim2.new(0.5, -200, 0.5, -150)
-MainFrame.Size = UDim2.new(0, 400, 0, 300)
+MainFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+MainFrame.BorderSizePixel = 0
+MainFrame.Position = UDim2.new(0, 20, 0, 100)
+MainFrame.Size = UDim2.new(0, 250, 0, 150)
 MainFrame.Active = true
 MainFrame.Draggable = true
 
-Title.Parent = MainFrame
-Title.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+TitleBar.Parent = MainFrame
+TitleBar.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+TitleBar.BorderSizePixel = 0
+TitleBar.Position = UDim2.new(0, 0, 0, 0)
+TitleBar.Size = UDim2.new(0, 250, 0, 30)
+
+Title.Parent = TitleBar
+Title.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Title.BackgroundTransparency = 1
 Title.BorderSizePixel = 0
-Title.Position = UDim2.new(0, 0, 0, 0)
-Title.Size = UDim2.new(0, 400, 0, 30)
-Title.Font = Enum.Font.SourceSansBold
-Title.Text = "Auto-Kick para Administradores"
+Title.Position = UDim2.new(0, 10, 0, 0)
+Title.Size = UDim2.new(0, 200, 0, 30)
+Title.Font = Enum.Font.GothamBold
+Title.Text = "Admin Detector"
 Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-Title.TextSize = 18.000
+Title.TextSize = 14
+Title.TextXAlignment = Enum.TextXAlignment.Left
+
+CloseButton.Parent = TitleBar
+CloseButton.BackgroundColor3 = Color3.fromRGB(255, 50, 50)
+CloseButton.BorderSizePixel = 0
+CloseButton.Position = UDim2.new(0, 220, 0, 5)
+CloseButton.Size = UDim2.new(0, 20, 0, 20)
+CloseButton.Font = Enum.Font.SourceSans
+CloseButton.Text = "×"
+CloseButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+CloseButton.TextSize = 16
 
 Status.Parent = MainFrame
-Status.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+Status.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Status.BackgroundTransparency = 1
 Status.BorderSizePixel = 0
-Status.Position = UDim2.new(0, 0, 0, 30)
-Status.Size = UDim2.new(0, 400, 0, 25)
-Status.Font = Enum.Font.SourceSans
-Status.Text = "Estado: Activo - Monitoreando admins"
+Status.Position = UDim2.new(0, 10, 0, 40)
+Status.Size = UDim2.new(0, 230, 0, 20)
+Status.Font = Enum.Font.Gotham
+Status.Text = "Estado: Monitoreando..."
 Status.TextColor3 = Color3.fromRGB(85, 255, 85)
-Status.TextSize = 14.000
+Status.TextSize = 12
+Status.TextXAlignment = Enum.TextXAlignment.Left
 
-AdminList.Parent = MainFrame
-AdminList.Active = true
-AdminList.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-AdminList.BorderSizePixel = 0
-AdminList.Position = UDim2.new(0, 10, 0, 60)
-AdminList.Size = UDim2.new(0, 380, 0, 180)
-AdminList.CanvasSize = UDim2.new(0, 0, 0, 0)
-AdminList.ScrollBarThickness = 8
-
-UIListLayout.Parent = AdminList
-UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-UIListLayout.Padding = UDim.new(0, 2)
+AdminCount.Parent = MainFrame
+AdminCount.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+AdminCount.BackgroundTransparency = 1
+AdminCount.BorderSizePixel = 0
+AdminCount.Position = UDim2.new(0, 10, 0, 65)
+AdminCount.Size = UDim2.new(0, 230, 0, 20)
+AdminCount.Font = Enum.Font.Gotham
+AdminCount.Text = "Admins en lista: " .. #admins
+AdminCount.TextColor3 = Color3.fromRGB(200, 200, 200)
+AdminCount.TextSize = 12
+AdminCount.TextXAlignment = Enum.TextXAlignment.Left
 
 ToggleButton.Parent = MainFrame
 ToggleButton.BackgroundColor3 = Color3.fromRGB(85, 170, 255)
 ToggleButton.BorderSizePixel = 0
-ToggleButton.Position = UDim2.new(0, 125, 0, 250)
-ToggleButton.Size = UDim2.new(0, 150, 0, 30)
-ToggleButton.Font = Enum.Font.SourceSansBold
+ToggleButton.Position = UDim2.new(0, 75, 0, 100)
+ToggleButton.Size = UDim2.new(0, 100, 0, 30)
+ToggleButton.Font = Enum.Font.GothamBold
 ToggleButton.Text = "Desactivar"
 ToggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-ToggleButton.TextSize = 16.000
+ToggleButton.TextSize = 12
 
--- Crear etiquetas para cada administrador
-for i, adminName in ipairs(admins) do
-    local adminLabel = Instance.new("TextLabel")
-    adminLabel.Parent = AdminList
-    adminLabel.BackgroundColor3 = Color3.fromRGB(55, 55, 55)
-    adminLabel.BorderSizePixel = 0
-    adminLabel.Size = UDim2.new(0, 370, 0, 20)
-    adminLabel.Font = Enum.Font.SourceSans
-    adminLabel.Text = adminName
-    adminLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-    adminLabel.TextSize = 14.000
-    adminLabel.TextXAlignment = Enum.TextXAlignment.Left
-    
-    -- Actualizar tamaño del canvas
-    AdminList.CanvasSize = UDim2.new(0, 0, 0, i * 22)
-end
+Corner.Parent = MainFrame
+TitleCorner.Parent = TitleBar
+ButtonCorner.Parent = ToggleButton
+Corner.CornerRadius = UDim.new(0, 5)
+TitleCorner.CornerRadius = UDim.new(0, 5)
+ButtonCorner.CornerRadius = UDim.new(0, 3)
 
--- Variables de control
 local isActive = true
-local checkInterval = 3
+local checkInterval = 2
 
--- Función para verificar si es administrador
 local function isAdmin(playerName)
     for _, adminName in ipairs(admins) do
         if adminName == playerName then
@@ -136,53 +111,41 @@ local function isAdmin(playerName)
     return false
 end
 
--- Función para auto-expulsarse (desconectarse del servidor)
 local function selfKick()
     game.Players.LocalPlayer:Kick("Administrador detectado - Auto-expulsión activada")
 end
 
--- Verificar si hay administradores en el servidor
 local function checkForAdmins()
     if not isActive then return end
     
     for _, player in ipairs(game.Players:GetPlayers()) do
         if isAdmin(player.Name) then
-            Status.Text = "¡Administrador detectado: " .. player.Name .. "!"
+            Status.Text = "¡Admin detectado: " .. player.Name .. "!"
             Status.TextColor3 = Color3.fromRGB(255, 85, 85)
-            
-            -- Esperar un momento antes de auto-expulsarse
             wait(1)
-            
-            -- Auto-expulsarse
             selfKick()
             return
         end
     end
 end
 
--- Comprobar cuando un jugador se une
 game.Players.PlayerAdded:Connect(function(player)
     if not isActive then return end
     
     if isAdmin(player.Name) then
-        Status.Text = "¡Administrador entró: " .. player.Name .. "!"
+        Status.Text = "¡Admin entró: " .. player.Name .. "!"
         Status.TextColor3 = Color3.fromRGB(255, 85, 85)
-        
-        -- Esperar un momento antes de auto-expulsarse
         wait(1)
-        
-        -- Auto-expulsarse
         selfKick()
     end
 end)
 
--- Botón de activar/desactivar
 ToggleButton.MouseButton1Click:Connect(function()
     isActive = not isActive
     if isActive then
         ToggleButton.Text = "Desactivar"
         ToggleButton.BackgroundColor3 = Color3.fromRGB(85, 170, 255)
-        Status.Text = "Estado: Activo - Monitoreando admins"
+        Status.Text = "Estado: Monitoreando..."
         Status.TextColor3 = Color3.fromRGB(85, 255, 85)
     else
         ToggleButton.Text = "Activar"
@@ -192,11 +155,14 @@ ToggleButton.MouseButton1Click:Connect(function()
     end
 end)
 
--- Comprobación periódica
+CloseButton.MouseButton1Click:Connect(function()
+    ScreenGui:Destroy()
+end)
+
 spawn(function()
     while wait(checkInterval) do
         checkForAdmins()
     end
 end)
 
-print("Script de auto-expulsión para Delta cargado correctamente")
+print("Anti-ban cargado correctamente")
