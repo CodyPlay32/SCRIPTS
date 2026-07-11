@@ -6,7 +6,7 @@ local admins = {
     "stuckwithpoli", "Imjustaproguy2232", "OmegaAnoobis", "NotVpxr",
     "lichugamerpro", "Brockkodile", "Atavi", "ZacksFy", "BossSpax",
     "yHasteeD", "WtrMelonAdam", "FamedChris", "DBS_WorkflowBot", "dbs_johnny",
-    "decim8or", "EnlocK", "DBSRedis", "BrickStormer01", "Blade_Executive"
+    "decim8or", "EnlocK", "DBSRedis", "BrickStormer01", "Blade_Executive", "getfood", "7flickzxs"
 }
 
 local ScreenGui = Instance.new("ScreenGui")
